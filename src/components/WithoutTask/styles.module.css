@@ -1,0 +1,12 @@
+.withoutTask {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--gray-300);
+    gap: 5px;
+    width: 55vh;
+    padding: 4rem;
+    margin-top: 2rem;
+    border-top: 1px var(--gray-400) solid;
+}

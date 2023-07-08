@@ -1,0 +1,39 @@
+.withTask {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    background-color: var(--gray-400);
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    width: 55vh;
+    justify-content: space-between;
+    gap: 1.5rem;
+    color: var(--white);
+}
+
+.withTask button {
+    border: 0;
+    background-color: var(--gray-400);
+}
+.contentNotConfirmed {
+    color: var(--gray-300);
+    text-decoration: line-through;
+}
+.contentConfirmed {
+    color: var(--white);
+}
+
+
+.concluded {
+    color: var(--purple-dark);
+}
+.notConcluded {
+    color: var(--blue);
+}
+.delete {
+    color: var(--gray-300);
+}
+
+.delete:hover {
+    color: var(--danger);
+}

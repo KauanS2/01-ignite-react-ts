@@ -1,0 +1,63 @@
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: -20px;
+}
+.form textarea {
+    background-color: var(--gray-500);
+    resize: none;
+    border-radius: 8px;
+    color: var(--gray-100);
+    border: 0;
+    width: 50vh;
+    height: 2.7rem;
+    padding: 0.7rem;
+}
+.form button {
+    background-color: var(--blue);
+    display: flex;
+    padding: 0 1rem;
+    height: 2.7rem;
+    color: var(--white);
+    align-items: center;
+    border-radius: 8px;
+    border: 0;
+    gap: 5px;
+    cursor: pointer;
+}
+.tasksCreatedAndConcluded {
+    display: flex;
+    justify-content: space-between;
+    width: 55vh;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.centralized {
+    display: flex;
+    justify-content: center;
+}
+
+.createdTask {
+    color: var(--blue);
+}
+
+.concluded {
+    color: var(--purple);
+}
+
+.tasksCreatedAndConcluded span strong {
+    color: var(--white);
+    background-color: var(--gray-400);
+    padding: 0.27rem;
+    border-radius: 12px;
+}
+
+.tasksOrWithout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
