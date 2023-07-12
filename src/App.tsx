@@ -3,11 +3,10 @@ import { CreateTask } from "./components/CreateTask/CreateTask";
 import "./global.css";
 
 function App() {
-  const content = "";
   return (
     <>
       <Header />
-      <CreateTask content={content} />
+      <CreateTask />
     </>
   );
 }

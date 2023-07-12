@@ -1,34 +1,38 @@
-import { useState } from "react";
 import styles from "./styles.module.css";
 import { CheckCircle, Circle, Trash } from "@phosphor-icons/react";
 
 interface WithTaskProps {
+  id: string;
   content: string;
+  isComplete: boolean;
+  onIsDone: (res: string) => void;
   onDeleteTask: (task: string) => void;
-  onIsDone: (done: void) => void;
 }
 
-export function WithTask({ content, onDeleteTask, onIsDone }: WithTaskProps) {
-  const [isDone, setValue] = useState(true);
+export function WithTask({
+  content,
+  onDeleteTask,
+  id,
+  onIsDone,
+  isComplete,
+}: WithTaskProps) {
   function handleDeleteTask() {
-    onDeleteTask(content);
-  }
-
-  function handleIsDone() {
-    onIsDone(setValue((isDone) => !isDone));
+    onDeleteTask(id);
   }
 
   return (
     <div className={styles.withTask}>
       <button
-        onClick={handleIsDone}
-        className={isDone === true ? styles.notConcluded : styles.concluded}
+        onClick={() => onIsDone(id)}
+        className={isComplete === true ? styles.concluded : styles.notConcluded}
       >
-        {isDone === true ? <Circle size={20} /> : <CheckCircle size={20} />}
+        {isComplete === true ? <CheckCircle size={20} /> : <Circle size={20} />}
       </button>
       <p
         className={
-          isDone === true ? styles.contentConfirmed : styles.contentNotConfirmed
+          isComplete === true
+            ? styles.contentNotConfirmed
+            : styles.contentConfirmed
         }
       >
         {content}

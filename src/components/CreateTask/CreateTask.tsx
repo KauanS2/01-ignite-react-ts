@@ -4,18 +4,29 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { WithTask } from "../WithTask/WithTask";
 import { WithoutTask } from "../WithoutTask/WithoutTask";
 
-export interface CreateTaskProps {
+export interface TaskProps {
+  id: string;
   content: string;
+  isComplete: boolean;
 }
-export function CreateTask({ content }: CreateTaskProps) {
-  const [task, setTask] = useState(Array<string>);
+export function CreateTask() {
+  const [task, setTask] = useState<TaskProps[]>([]);
   const [newTask, setNewTask] = useState("");
-  const [valor, setValor] = useState(0);
-  const [confirm, setConfirm] = useState(true);
 
-  function handleCreateNewTask(event: FormEvent) {
+  function handleCreateNewTask(taskContent: string) {
+    setTask([
+      ...task,
+      {
+        content: taskContent,
+        id: crypto.randomUUID(),
+        isComplete: false,
+      },
+    ]);
+    setNewTask("");
+  }
+  function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    setTask([...task, newTask]);
+    handleCreateNewTask(newTask);
     setNewTask("");
   }
 
@@ -24,32 +35,28 @@ export function CreateTask({ content }: CreateTaskProps) {
   }
   function deleteTask(taskToDelete: string) {
     const deleteOneTask = task.filter((tasks) => {
-      return tasks !== taskToDelete;
+      return tasks.id !== taskToDelete;
     });
     setTask(deleteOneTask);
   }
 
-  function isComplete(tasksDone: string) {
-    {
-      confirm === true
-        ? task.map((tasks) => {
-            if (tasks !== tasksDone) {
-              setValor(valor + 1);
-              return setConfirm(false);
-            }
-          })
-        : task.map((tasks) => {
-            if (tasks !== tasksDone) {
-              setValor(valor - 1);
-              return setConfirm(true);
-            }
-          });
-    }
+  function isComplete(taskid: string) {
+    const newTask = task.map((res) => {
+      if (taskid === res.id) {
+        return {
+          ...res,
+          isComplete: !res.isComplete,
+        };
+      }
+      return res;
+    });
+    return setTask(newTask);
   }
+  const taskQuantity = task.filter((res) => res.isComplete);
 
   return (
     <>
-      <form onSubmit={handleCreateNewTask} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <textarea
           required
           value={newTask}
@@ -69,7 +76,7 @@ export function CreateTask({ content }: CreateTaskProps) {
           <span className={styles.concluded}>
             Concluidas{" "}
             <strong>
-              {valor} de {task.length}
+              {taskQuantity.length} de {task.length}
             </strong>
           </span>
         </div>
@@ -79,8 +86,10 @@ export function CreateTask({ content }: CreateTaskProps) {
           task.map((tarefa) => {
             return (
               <WithTask
-                content={tarefa}
-                key={tarefa}
+                id={tarefa.id}
+                isComplete={tarefa.isComplete}
+                content={tarefa.content}
+                key={tarefa.id}
                 onIsDone={isComplete}
                 onDeleteTask={deleteTask}
               />
